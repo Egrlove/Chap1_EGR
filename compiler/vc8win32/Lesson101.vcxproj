@@ -144,6 +144,7 @@
     <ClCompile Include="..\..\..\Shared_Source\User_Reports\DebugRenderer.cpp" />
     <ClCompile Include="..\..\..\Shared_Source\win\MediaPath_WIN.cpp" />
     <ClCompile Include="..\..\..\Shared_Source\win\Timing_WIN.cpp" />
+    <ClCompile Include="..\..\Lesson101\source\different_drawing_funcs.cpp" />
     <ClCompile Include="..\..\Lesson101\source\Lesson101.cpp" />
   </ItemGroup>
   <ItemGroup>

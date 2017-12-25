@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Parent>
 <Child param="0" name="SpheresNumber" 
-       value="1"></Child>
+       value="4"></Child>
 <Child param="1" name="X_bro" 
        value="20"></Child>
 <Child param="2" name="Y_bro" 

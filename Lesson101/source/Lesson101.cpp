@@ -3,13 +3,15 @@
 #include <vector>
 #include <iterator> 
 #include <time.h>
-
+#include <cstdlib>
 #include "tinyxml.h"
 #include "tinystr.h"
 #define TIXML_USE_STL
 
-
-
+void
+drawing_arrows(vector<NxVec3>::iterator ,struct sphere_param & );
+void
+drawing_graph();
 struct sphere_param
 {
 	NxVec3 color;
@@ -18,6 +20,7 @@ struct sphere_param
 	vector<NxVec3> trace;
 	vector<NxVec3> way;
 	vector<NxVec3>::iterator its;
+	vector<NxVec3>::iterator next_point_for_deleting;
 	NxActor* selc_Ac;
 };
 
@@ -30,7 +33,6 @@ int SpheresNumber = 3;
 int X_bro = 4;
 int Y_bro = 4;
 int STEP = 5;
-
 int dest = 0;
 int SCALE = 1000;
 float offsetX = 0.25;
@@ -128,28 +130,6 @@ void making_matrix()
 	//	}
 	//	cout << endl;
 	//}
-}
-
-void drawing_graph()
-{
-	int pos_y_s;
-	int pos_x_s;
-	int pos_y_e;
-	int pos_x_e;
-
-	for (int i = 0; i < X_bro * Y_bro; i++)
-		for (int j = 0; j < X_bro * Y_bro; j++)
-		{
-			if (adj_matrix[i][j])
-			{
-				pos_y_s = i / X_bro;
-				pos_x_s = i - pos_y_s*X_bro;
-				pos_y_e = j / X_bro;
-				pos_x_e = j - pos_y_e *X_bro;
-				//cout << "POSITIONS   " << pos_x_s << " " << pos_y_s << " " << pos_x_e << " " << pos_y_e<<endl;
-				DrawLine(vec_matrix[pos_x_s][pos_y_s], vec_matrix[pos_x_e][pos_y_e] ,NxVec3(1,1,1), 1.0);
-			}
-		}
 }
 
 void generatig_graph()
@@ -272,6 +252,7 @@ int* deikstr(int A, int B)
 					dei_matrix[k][i].name = parent.name;
 					dei_matrix[k][i].num = parent.num + 1;
 				}
+			// craaaaaaaaaaaaaaaaaaaaaaaaaaaaaaash
 				else
 					dei_matrix[k][i] = dei_matrix[k - 1][i];
 		}
@@ -369,6 +350,8 @@ void initite() {
 			gg.last_point = dest;
 			gg.its = gg.trace.begin();
 			gg.selc_Ac = CreateSphere();
+			gg.next_point_for_deleting = next(gg.way.begin());
+
 			objects.push_back( move(gg));
 		}
 		go = 1;
@@ -457,71 +440,53 @@ NxActor* groundPlane = NULL;
 NxActor* gSelectedActor = NULL;
 
 
-
-
 void RenderActors(bool shadows)
 {
-
+	
 	vector<NxVec3>::iterator iters;
+	vector<NxVec3>::iterator next_point;
+	NxVec3 cur_point;
 
 	if (go == 1){
 		for (auto& it : objects){
-			for (iters = (&it)->way.begin(); iters != (&it)->way.end(); ++iters) {
+			cur_point = *((&it)->its);
+			(&it)->way[0] = cur_point;
+
+
+			for (iters = (&it)->way.begin(); iters != (&it)->way.end(); ++iters ) {
 				if (next(iters) != (&it)->way.end()) {
-
-
-					DrawLine(*iters, *next(iters), ((&it)->color), 1.5);
-
-
-					if (abs((*next(iters)).x - (*iters).x) < (STEP - STEP*offsetX))
-					{
-						if ((*next(iters)).z - (*iters).z > 0) {
-							NxVec3 center_of_line = (*next(iters) + *iters)/2;
-							DrawTriangle(center_of_line + NxVec3(0, 0, 0), center_of_line + NxVec3(1, 0, -1), center_of_line + NxVec3(-1, 0, -1), (&it)->color);
-						}
-						else {
-							NxVec3 center_of_line = ( *iters + *next(iters))/2;
-							DrawTriangle(center_of_line, center_of_line + NxVec3(-1, 0, 1), center_of_line + NxVec3(1, 0, 1), (&it)->color);
-						}
-					}
-
-
-					if (abs((*next(iters)).z - (*iters).z) < (STEP - STEP*offsetZ))
-					{
-						if ((*next(iters)).x - (*iters).x > 0) {
-							NxVec3 center_of_line = (*next(iters) + *iters) / 2;
-							DrawTriangle(center_of_line + NxVec3(0, 0, 0), center_of_line + NxVec3(-1 , 0, -1), center_of_line + NxVec3(-1 , 0, 1), (&it)->color);
-						}
-						else {
-							NxVec3 center_of_line = (*iters + *next(iters)) / 2;
-							DrawTriangle(center_of_line , center_of_line + NxVec3(1 , 0, 1), center_of_line + NxVec3(1, 0, -1), (&it)->color);
-
-						}
-					}
-
-
-
-					//ideal
-					//DrawTriangle( NxVec3(0, 2, 0) ,NxVec3(1,2,-10), NxVec3(-1, 2, -10), ((&it)->color));
-					//Na menya
-					//DrawTriangle(NxVec3(0, 2, 0), NxVec3(-1, 2, 10), NxVec3(1, 2, 10), ((&it)->color));
-					//---
-
-					
+					drawing_arrows(iters, it);
+					DrawLine(*iters, *next(iters), ((&it)->color), 2.0);					
 				}
 			}
+
+			// для того чтобы путь начинался в шаре
+			if (((abs((*((&it)->its)).x - (*((&it)->next_point_for_deleting)).x)) < 0.1) && ((abs((*((&it)->its)).y - (*((&it)->next_point_for_deleting)).y)) < 0.1)
+				&& ((abs((*((&it)->its)).z - (*((&it)->next_point_for_deleting)).z)) < 0.1))
+			{
+				if ( ((&it)->way.size()) > 2 ) {
+					(&it)->way.erase(((&it)->next_point_for_deleting));
+					iters = (&it)->way.begin();
+					(&it)->next_point_for_deleting = next(iters);
+					(&it)->way[0] = *((&it)->its);
+				}
+			}
+
+
 			if ( ((&it)->its) != --(&it)->trace.end() ){
+				cur_point = *((&it)->its);
 				(&it)->selc_Ac->moveGlobalPosition(*((&it)->its++));
 			}
 			else{
-				//(&it)->
 				(&it)->trace.clear();
 				(&it)->way.clear();
 				(&it)->way = making_vec_from_dijkstra((&it)->last_point);
 				(&it)->last_point = dest;
 				(&it)->trace = makingvec((&it)->way);
+				(&it)->next_point_for_deleting = next((&it)->way.begin());
 				(&it)->its = (&it)->trace.begin();
 			}
+
 		}
 	}
 
@@ -546,6 +511,15 @@ void RenderActors(bool shadows)
 	}
 
 }
+
+
+
+//ideal
+//DrawTriangle( NxVec3(0, 2, 0) ,NxVec3(1,2,-10), NxVec3(-1, 2, -10), ((&it)->color));
+//Na menya
+//DrawTriangle(NxVec3(0, 2, 0), NxVec3(-1, 2, 10), NxVec3(1, 2, 10), ((&it)->color));
+//---
+
 
 void ProcessCameraKeys()
 {
@@ -871,5 +845,3 @@ int main(int argc, char** argv)
 	ReleaseNx();
 	return 0;
 }
-
-

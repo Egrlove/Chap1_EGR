@@ -66,16 +66,19 @@
     <ClCompile Include="..\..\..\Shared_Source\User_Reports\DebugRenderer.cpp">
       <Filter>Common Files\User_Reports</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Shared_Projects\tinyxml\src\tinyxmlerror.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\Shared_Projects\tinyxml\src\tinyxmlparser.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\Shared_Projects\tinyxml\src\tinystr.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Common Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\Shared_Projects\tinyxml\src\tinyxml.cpp">
+      <Filter>Common Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Shared_Projects\tinyxml\src\tinyxmlerror.cpp">
+      <Filter>Common Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Shared_Projects\tinyxml\src\tinyxmlparser.cpp">
+      <Filter>Common Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Lesson101\source\different_drawing_funcs.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
