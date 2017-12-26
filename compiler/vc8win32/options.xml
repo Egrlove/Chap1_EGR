@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <MAIN>
 <objectsCount  value="4"></objectsCount>
-<graphPointsCountX value="40"></graphPointsCountX>
-<graphPointsCountY value="40"></graphPointsCountY>
+<graphPointsCountX value="30"></graphPointsCountX>
+<graphPointsCountY value="30"></graphPointsCountY>
 <STEP   value="5"></STEP>
-<SCALE  value="1000"></SCALE>
+<SCALE  value="10"></SCALE>
 <offsetX  value="0.25"></offsetX>
 <offsetY  value="0.25"></offsetY>
 <offsetZ  value="0.25"></offsetZ>

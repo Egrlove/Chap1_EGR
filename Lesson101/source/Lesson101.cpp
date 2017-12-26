@@ -38,7 +38,7 @@ int SCALE = 1000;
 float offsetX = 0.25;
 float offsetY = 0.25;
 float offsetZ = 0.25;
-int step_scale;
+static int step_scale = 10;
 
 
 
@@ -86,9 +86,9 @@ vector<NxVec3> makingvec(vector<NxVec3> v)
 		vectr_direction = second - first;
 
 		
-		//delta = vectr_direction / SCALE;
-		delta = vectr_direction / step_scale;
-		cout << "delta=  ";	print_NXvectr(delta);
+		delta = vectr_direction / SCALE;
+		//delta = vectr_direction / step_scale;
+		//cout << "delta=  ";	print_NXvectr(delta);
 
 
 
@@ -336,6 +336,42 @@ void initite() {
 	generatig_graph();
 	making_matrix();///*
 	sphere_param gg;
+
+
+
+	cout << "------------------------------" << endl;
+	float ffff = X_bro *Y_bro / 400 + 1;
+	NxReal elapTime = getElapsedTime();
+	NxReal deltaTime = 0.0015;
+	step_scale = ( elapTime / deltaTime);
+	cout << "STEP_SCALE=  " << step_scale << endl;
+
+	//int new_scale = 10;
+	//int f;
+	//while (step_scale / 10)
+	//{
+	//	step_scale /= 10;
+	//	new_scale *= 10;
+	//}
+
+	//step_scale = new_scale;
+	SCALE = step_scale * 650;
+	//SCALE = 650;
+
+	cout << "STEP_SCALE=  " << SCALE << endl;
+
+	cout << "elap time=  " << elapTime << endl;
+	//cout << "delta=  ";	print_NXvectr(delta);
+	cout << "------------------------------" << endl;
+
+
+
+
+
+
+
+
+
 	if (go == 0)
 	{
 		for (int i = 0; i < SpheresNumber; ++i)
@@ -838,30 +874,6 @@ int main(int argc, char** argv)
 
     InitGlut(argc, argv);
     InitNx();
-
-	cout << "------------------------------" << endl;
-	NxReal elapTime = getElapsedTime();
-	NxReal deltaTime = 0.0001;
-	step_scale = (elapTime / deltaTime)  ;
-	cout << "STEP_SCALE=  " << step_scale << endl;
-
-	int new_scale = 10;
-	int f;
-	while (step_scale / 10 )
-	{
-		step_scale /= 10;
-		new_scale *= 10;
-	}
-
-	step_scale = 500;
-	cout << "STEP_SCALE=  " << step_scale << endl;
-
-	//cout << "elap time=  " << elapTime << endl;
-	//cout << "delta=  ";	print_NXvectr(delta);
-	cout << "------------------------------" << endl;
-
-
-
 
 	initite();
     glutMainLoop();
