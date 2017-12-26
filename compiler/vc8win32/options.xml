@@ -9,7 +9,7 @@
 <Child param="3" name="STEP" 
        value="5"></Child>
 <Child param="4" name="SCALE" 
-       value="100"></Child>
+       value="1000"></Child>
 <Child param="5" name="offsetX" 
        value="0.25"></Child>
 <Child param="6" name="offsetY" 

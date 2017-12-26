@@ -459,8 +459,10 @@ void RenderActors(bool shadows)
 			}
 
 			// для того чтобы путь начинался в шаре
-			if (((abs((*((&it)->its)).x - (*((&it)->next_point_for_deleting)).x)) < 0.1) && ((abs((*((&it)->its)).y - (*((&it)->next_point_for_deleting)).y)) < 0.1)
-				&& ((abs((*((&it)->its)).z - (*((&it)->next_point_for_deleting)).z)) < 0.1))
+			float delta = 0.6;
+			//float delta = 1/(float)STEP ;
+			if (((abs((*((&it)->its)).x - (*((&it)->next_point_for_deleting)).x)) < delta) && ((abs((*((&it)->its)).y - (*((&it)->next_point_for_deleting)).y)) <delta)
+				&& ((abs((*((&it)->its)).z - (*((&it)->next_point_for_deleting)).z)) < delta))
 			{
 				if ( ((&it)->way.size()) > 2 ) {
 					(&it)->way.erase(((&it)->next_point_for_deleting));
