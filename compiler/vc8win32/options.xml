@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <MAIN>
 <objectsCount  value="4"></objectsCount>
-<graphPointsCountX value="20"></graphPointsCountX>
-<graphPointsCountY value="20"></graphPointsCountY>
+<graphPointsCountX value="40"></graphPointsCountX>
+<graphPointsCountY value="40"></graphPointsCountY>
 <STEP   value="5"></STEP>
 <SCALE  value="1000"></SCALE>
 <offsetX  value="0.25"></offsetX>

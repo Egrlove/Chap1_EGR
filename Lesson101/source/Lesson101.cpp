@@ -38,7 +38,7 @@ int SCALE = 1000;
 float offsetX = 0.25;
 float offsetY = 0.25;
 float offsetZ = 0.25;
-
+int step_scale;
 
 
 
@@ -59,7 +59,7 @@ NxVec3 randomcolor()
 
 void print_NXvectr(NxVec3 null_vectr)
 {
-	cout << null_vectr[0] << " " << null_vectr[1] << " " << null_vectr[2] << " | ";
+	cout << null_vectr[0] << " " << null_vectr[1] << " " << null_vectr[2] << " | "<<endl;
 }
 
 vector<NxVec3> makingvec(vector<NxVec3> v)
@@ -72,6 +72,8 @@ vector<NxVec3> makingvec(vector<NxVec3> v)
 	NxVec3 null_vectr;
 	vector<NxVec3>  vectr;
 
+
+
 	for (auto it = v.begin(); it != prev(v.end()); ++it)
 	{
 		if (it == v.begin()) {
@@ -83,15 +85,12 @@ vector<NxVec3> makingvec(vector<NxVec3> v)
 		second = *next_it;
 		vectr_direction = second - first;
 
-		NxReal elapTime = getElapsedTime();
 		
+		//delta = vectr_direction / SCALE;
+		delta = vectr_direction / step_scale;
+		cout << "delta=  ";	print_NXvectr(delta);
 
-		float deltaTime = 0.0001;
-		deltaTime = 2;// /= elapTime;
-		int count = 100 / deltaTime;
-		delta = vectr_direction / SCALE;
-		//printf("getET = %f\n", elapTime);
-		//prev = elapTime;
+
 
 		for (auto vectr_iter = vectr.end(); i < SCALE ; ++i)
 		{
@@ -836,8 +835,34 @@ void GetPhysicsResults()
 int main(int argc, char** argv)
 {
 	parser();
+
     InitGlut(argc, argv);
     InitNx();
+
+	cout << "------------------------------" << endl;
+	NxReal elapTime = getElapsedTime();
+	NxReal deltaTime = 0.0001;
+	step_scale = (elapTime / deltaTime)  ;
+	cout << "STEP_SCALE=  " << step_scale << endl;
+
+	int new_scale = 10;
+	int f;
+	while (step_scale / 10 )
+	{
+		step_scale /= 10;
+		new_scale *= 10;
+	}
+
+	step_scale = 500;
+	cout << "STEP_SCALE=  " << step_scale << endl;
+
+	//cout << "elap time=  " << elapTime << endl;
+	//cout << "delta=  ";	print_NXvectr(delta);
+	cout << "------------------------------" << endl;
+
+
+
+
 	initite();
     glutMainLoop();
 	ReleaseNx();
