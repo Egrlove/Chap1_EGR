@@ -217,14 +217,9 @@ int* deikstr(int A, int B)
 	int num_of_steps = 1;
 	int n = 0;
 
-	dei_matrix = new struct dei*[X_bro*Y_bro];
+	dei_matrix = new struct dei*[2*X_bro*Y_bro];
 
-/*	for (int i = 0; i < X_bro * Y_bro; ++i)
-		{
-			dei_matrix[0][i].name = 0;
-			dei_matrix[0][i].num = 0;
-		}
-		*/
+
 	struct dei parent;
 	parent.name = A;
 	parent.num = 1;
@@ -232,13 +227,11 @@ int* deikstr(int A, int B)
 
 	while (!flag)
 	{
-		//byygygbygb
 		k++;
 		dei_matrix[k] = new struct dei[X_bro*Y_bro];
-
 		for (int i = 0; i < X_bro * Y_bro; i++)
 		{
-			if (!k)
+			if (!k) {
 				if (adj_matrix[parent.name][i])
 				{
 					dei_matrix[k][i].name = parent.name;
@@ -246,15 +239,21 @@ int* deikstr(int A, int B)
 				}
 				else
 					dei_matrix[k][i].name = -1;
+			}
 			else
+			{
 				if (adj_matrix[parent.name][i] && (dei_matrix[k - 1][i].name < 0 || dei_matrix[k - 1][i].num > parent.num))
 				{
 					dei_matrix[k][i].name = parent.name;
 					dei_matrix[k][i].num = parent.num + 1;
 				}
-			// craaaaaaaaaaaaaaaaaaaaaaaaaaaaaaash
 				else
-					dei_matrix[k][i] = dei_matrix[k - 1][i];
+				{
+					//dei_matrix[k][i] = dei_matrix[k - 1][i];
+					dei_matrix[k][i].name = dei_matrix[k - 1][i].name;
+					dei_matrix[k][i].num = dei_matrix[k - 1][i].num;
+				}
+			}
 		}
 
 		f = 0;
@@ -270,7 +269,6 @@ int* deikstr(int A, int B)
 					parent.name = i;
 					parent.num = dei_matrix[k][i].num;
 				}
-
 				b++;
 			}
 		}
@@ -281,9 +279,14 @@ int* deikstr(int A, int B)
 			n = 0;
 		}
 		else
+		{
 			n++;
+		}
 
-		if (dei_matrix[k][B].name != -1) flag = 1;
+		if (dei_matrix[k][B].name != -1)
+		{
+			flag = 1;
+		}
 	}
 
 	int name = B;
@@ -301,18 +304,13 @@ int* deikstr(int A, int B)
 		numb--;
 	}
 
-/*
-	for (int i = 0; i < counts ; ++i)
-	{
-		cout << pathway[i] << " ";
-	}
-	cout << endl;
 
-*/
 	for (int i = 0; i < k; i++)
+	{
 		delete dei_matrix[i];
+	}
 
-	//delete[] dei_matrix;
+	delete[] dei_matrix;
 
 	return pathway;
 }

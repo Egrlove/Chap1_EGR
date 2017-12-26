@@ -115,7 +115,7 @@
     <ClCompile>
       <AdditionalOptions>/O2 /MT  %(AdditionalOptions)</AdditionalOptions>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>../../../../../SDKs/Foundation/include;../../../../../SDKs/Physics/include;../../../../../SDKs/Cooking/include;../../../../../SDKs/PhysXLoader/include;../../../../../SDKs/NxCharacter/include;../../../Shared_Source;../../../Shared_Source/User_Reports;../../../Shared_Source/Timer;../../../Shared_Source/win;../../../../../Graphics/include/win32;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\1\Desktop\Компьютерная графика\PhysX Tutorials\TrainingPrograms\Programs\Shared_Projects\tinyxml\include;../../../../../SDKs/Foundation/include;C:\Users\USER1\Desktop\PhysX Tutorials\TrainingPrograms\Programs\Shared_Projects\tinyxml\include;../../../../../SDKs/Physics/include;../../../../../SDKs/Cooking/include;../../../../../SDKs/PhysXLoader/include;../../../../../SDKs/NxCharacter/include;../../../Shared_Source;../../../Shared_Source/User_Reports;../../../Shared_Source/Timer;../../../Shared_Source/win;../../../../../Graphics/include/win32;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;_CONSOLE;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ExceptionHandling>Sync</ExceptionHandling>
       <WarningLevel>Level3</WarningLevel>
