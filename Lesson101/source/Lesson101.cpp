@@ -372,15 +372,13 @@ void parser()
 	else
 	{
 
-		TiXmlElement* element = xml_file->FirstChildElement("Parent");
+		TiXmlElement* element = xml_file->FirstChildElement("MAIN");
 
-		element = element->FirstChildElement("Child");
+		element = element->FirstChildElement("objectsCount");
 
 		while (element != NULL)
 		{
-			if (element->QueryIntAttribute("param", &param) == TIXML_SUCCESS
-				&&
-				element->QueryDoubleAttribute("value", &value) == TIXML_SUCCESS)
+			if (	element->QueryDoubleAttribute("value", &value) == TIXML_SUCCESS)
 			{
 				cout << value << endl;
 				values[i] = value;
